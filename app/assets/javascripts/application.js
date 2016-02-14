@@ -16,3 +16,9 @@
 //= require tether
 //= require bootstrap-sprockets
 //= require_tree .
+
+$.ajaxSetup({
+  headers: {
+    'Client-Token': 'Cwi2R8cYVwPocG4zUmdQxPEDkPcWrXQk'
+  }
+});
