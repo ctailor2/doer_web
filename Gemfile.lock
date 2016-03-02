@@ -36,6 +36,10 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
+    angular-rails-templates (1.0.0)
+      railties (>= 4.2, < 6)
+      sprockets (~> 3.0)
+      tilt
     arel (6.0.3)
     autoprefixer-rails (6.3.2)
       execjs
@@ -45,6 +49,7 @@ GEM
     bootstrap (4.0.0.alpha3)
       autoprefixer-rails (>= 6.0.3)
       sass (>= 3.4.19)
+    bower-rails (0.10.0)
     builder (3.2.2)
     byebug (8.2.2)
     coderay (1.1.0)
@@ -160,7 +165,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  angular-rails-templates
   bootstrap (~> 4.0.0.alpha3)
+  bower-rails
   coffee-rails (~> 4.1.0)
   haml
   jbuilder (~> 2.0)

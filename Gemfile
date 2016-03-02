@@ -11,6 +11,9 @@ gem 'haml' # Use haml templating language
 gem 'bootstrap', '~> 4.0.0.alpha3' # Use bootstrap frontend framework
 gem 'rails-assets-tether', '>= 1.1.0' # Use tether for bootstrap tooltip positions
 
+gem 'bower-rails'
+gem 'angular-rails-templates'
+
 gem 'jbuilder', '~> 2.0' # Build JSON APIs with ease
 gem 'sdoc', '~> 0.4.0', group: :doc # bundle exec rake doc:rails generates the API under doc/api.
 
