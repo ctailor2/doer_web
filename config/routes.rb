@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
-  root 'application#index'
-  get '*path' => 'application#index'
+  root 'todos#index'
+
+  get :login, to: 'sessions#new'
 end
