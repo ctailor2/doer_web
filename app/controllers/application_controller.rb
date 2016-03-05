@@ -18,6 +18,6 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate!
-    redirect_to login_path and return unless session[:token].present?
+    redirect_to login_path and return unless cookies[:token].present?
   end
 end
