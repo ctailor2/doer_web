@@ -17,5 +17,6 @@
     Cookies.set('token', data['token'])
     window.location.replace("#{root_url}");
   }).on('ajax:error', function(event, xhr, status, error) {
+    // Need to handle the error
   });
 

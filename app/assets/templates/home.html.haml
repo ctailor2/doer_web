@@ -1,5 +1,5 @@
-%h1 The Home View!
+%h1 Your Todos
 %ul
-  %li{ ng: { repeat: 'thing in things' } }
-    {{ thing }}
+  %li{ ng: { repeat: 'todo in todos' } }
+    {{ todo.task }}
 

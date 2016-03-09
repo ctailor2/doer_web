@@ -18,6 +18,9 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate!
+    # All we want is a token. If there are issues retrieving data for the user
+    # on subsequent API requests using this token, give the user the option to
+    # login again.
     redirect_to login_path and return unless cookies[:token].present?
   end
 end
