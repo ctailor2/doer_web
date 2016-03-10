@@ -1,5 +1,20 @@
-%h1 Your Todos
-%ul
-  %li{ ng: { repeat: 'todo in todos' } }
-    {{ todo.task }}
+.container
+  .row
+    .col-lg-6.col-lg-offset-3
+      .row
+        %table.table.table-condensed
+          %thead
+            %tr
+              %th Task
+          %tbody
+            %tr{ ng: { repeat: 'todo in todos' } }
+              %td {{ todo.task }}
+            %tr
+              %td
+                %form
+                  .form-group
+                    .input-group
+                      %input.form-control{ type: 'text', ng: { model: 'todo.task' }, name: 'todo' }
+                      %span.input-group-btn
+                        %button.btn.btn-primary{ type: 'submit', ng: { click: 'add(todo)' }, name: 'todo' } Do!
 
