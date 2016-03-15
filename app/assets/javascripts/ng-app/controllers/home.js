@@ -1,11 +1,6 @@
 angular.module('AngularDoer')
   .controller('HomeCtrl', function($scope, $http) {
-    $http.get('http://localhost:4000/v1/todos/index', {
-      headers: {
-        'Session-Token': Cookies.get('token')
-      }
-    }).
-    then(
+    $http.get('http://localhost:4000/v1/todos/index').then(
       function(successResult) {
         $scope.todos = successResult.data
       },
@@ -15,11 +10,7 @@ angular.module('AngularDoer')
     );
 
     $scope.add = function(todo) {
-      $http.post('http://localhost:4000/v1/todos/create', { todo: todo }, {
-        headers: {
-          'Session-Token': Cookies.get('token')
-        }
-      });
+      $http.post('http://localhost:4000/v1/todos/create', { todo: todo });
     };
   });
 
