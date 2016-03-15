@@ -7,14 +7,13 @@
             %tr
               %th Task
           %tbody
-            %tr{ ng: { repeat: 'todo in todos' } }
-              %td {{ todo.task }}
             %tr
               %td
-                %form
-                  .form-group
-                    .input-group
-                      %input.form-control{ type: 'text', ng: { model: 'todo.task' }, name: 'todo' }
-                      %span.input-group-btn
-                        %button.btn.btn-primary{ type: 'submit', ng: { click: 'add(todo)' }, name: 'todo' } Do!
+                .form-group
+                  .input-group
+                    %input.form-control{ type: 'text', ng: { model: 'task' } }
+                    %span.input-group-btn
+                      %button.btn.btn-primary{ type: 'submit', ng: { click: 'add(task)' } } Do!
+            %tr{ ng: { repeat: 'todo in user.todos' } }
+              %td {{ todo.task }}
 
