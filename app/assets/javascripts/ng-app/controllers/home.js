@@ -14,8 +14,24 @@ angular.module('AngularDoer')
     );
 
     $scope.add = function(task) {
-      //$scope.user.todos.push({ task: task });
-      //$http.post('http://localhost:4000/v1/todos/create', { todo: todo });
+      newTodo = { task: task, saved: false }
+      user.todos.push(newTodo);
+      $http.post('http://localhost:4000/v1/todos/create', { todo: newTodo }).then(
+        function(successResult) {
+          newTodo.saved = true;
+        },
+        function(errorResult) {
+          // Need to handle the error
+        }
+      );
+    };
+
+    $scope.savedHTML = function(saved) {
+      if(saved) {
+        return '';
+      } else {
+        return '<img src="ajax-loader.gif"/>';
+      }
     };
   });
 

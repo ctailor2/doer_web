@@ -2,18 +2,18 @@
   .row
     .col-lg-6.col-lg-offset-3
       .row
+        .form-group
+          .input-group
+            %input.form-control{ type: 'text', ng: { model: 'task' } }
+            %span.input-group-btn
+              %button.btn.btn-primary{ type: 'submit', ng: { click: 'add(task)' } } Do!
         %table.table.table-condensed
           %thead
             %tr
               %th Task
+              %th
           %tbody
-            %tr
-              %td
-                .form-group
-                  .input-group
-                    %input.form-control{ type: 'text', ng: { model: 'task' } }
-                    %span.input-group-btn
-                      %button.btn.btn-primary{ type: 'submit', ng: { click: 'add(task)' } } Do!
             %tr{ ng: { repeat: 'todo in user.todos' } }
               %td {{ todo.task }}
+              %td{ ng: { bind: { html: 'savedHTML(todo.saved)' } } }
 
