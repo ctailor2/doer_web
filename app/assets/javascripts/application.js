@@ -19,6 +19,7 @@
 //= require angular-route
 //= require angular-rails-templates
 //= require js-cookie
+//= require angular-sanitize
 //= require_tree ../templates
 //= require_tree .
 

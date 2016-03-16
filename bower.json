@@ -4,6 +4,7 @@
     "dependencies": {
       "angular": "latest",
       "angular-route": "latest",
+      "angular-sanitize": "latest",
       "js-cookie": "latest"
     }
   },
