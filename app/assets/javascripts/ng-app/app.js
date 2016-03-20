@@ -6,8 +6,8 @@ angular
   ]).config(function($routeProvider, $locationProvider) {
     $routeProvider
       .when('/', {
-        templateUrl: 'home.html',
-        controller: 'HomeCtrl'
+        templateUrl: 'todos/index.html',
+        controller: 'TodosCtrl'
       });
     $locationProvider.html5Mode(true);
   }).config(function($httpProvider) {

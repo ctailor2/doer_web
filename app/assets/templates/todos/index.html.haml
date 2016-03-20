@@ -1,4 +1,5 @@
-.container
+%div{ ng: { include: "'layout_partials/header.html'" } }
+.container-fluid
   .row
     .col-lg-6.col-lg-offset-3
       .row
@@ -16,4 +17,3 @@
             %tr{ ng: { repeat: 'todo in user.todos' } }
               %td {{ todo.task }}
               %td{ ng: { bind: { html: 'savedHTML(todo.saved)' } } }
-

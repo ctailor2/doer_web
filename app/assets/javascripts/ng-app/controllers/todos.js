@@ -1,5 +1,5 @@
 angular.module('AngularDoer')
-  .controller('HomeCtrl', function($scope, $http) {
+  .controller('TodosCtrl', function($scope, $http) {
     var user = {};
 
     $scope.user = user;
