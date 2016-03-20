@@ -28,7 +28,7 @@ angular.module('AngularDoer')
 
     $scope.savedHTML = function(saved) {
       if(saved) {
-        return '';
+        return '<span class="octicon octicon-x"></span>';
       } else {
         return '<img src="ajax-loader.gif"/>';
       }

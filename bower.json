@@ -11,6 +11,7 @@
   "vendor": {
     "name": "bower-rails generated vendor assets",
     "dependencies": {
+      "octicons": "*"
     }
   }
 }
