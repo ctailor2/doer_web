@@ -12,4 +12,4 @@
         %ul.list-group
           %li.list-group-item{ ng: { repeat: 'todo in user.todos' } }
             {{ todo.task }}
-            %span.pull-lg-right{ ng: { bind: { html: 'savedHTML(todo.saved)' } } }
+            %span.pull-lg-right{ ng: { bind: { html: 'persistedHTML(todo.id)' } } }
