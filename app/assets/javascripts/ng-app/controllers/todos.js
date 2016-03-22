@@ -15,10 +15,9 @@ angular.module('AngularDoer')
 
     $scope.add = function(task) {
       newTodo = { task: task }
-      user.todos.push(newTodo);
       $http.post('http://localhost:4000/v1/todos/create', { todo: newTodo }).then(
         function(successResult) {
-          newTodo.id = successResult.data.id;
+          user.todos.push(successResult.data);
         },
         function(errorResult) {
           // Need to handle the error
@@ -26,12 +25,16 @@ angular.module('AngularDoer')
       );
     };
 
-    $scope.persistedHTML = function(id) {
-      if(id) {
-        return '<span class="octicon octicon-x"></span>';
-      } else {
-        return '<img src="ajax-loader.gif"/>';
-      }
+    $scope.remove = function(todo) {
+      var index = user.todos.indexOf(todo);
+      $http.delete('http://localhost:4000/v1/todos/' + todo.id).then(
+        function(successResult) {
+          user.todos.splice(index, 1);
+        },
+        function(errorResult) {
+          // Need to handle the error
+        }
+      )
     };
   });
 
