@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui
 //= require turbolinks
 //= require tether
 //= require bootstrap-sprockets
@@ -20,6 +21,7 @@
 //= require angular-rails-templates
 //= require js-cookie
 //= require angular-sanitize
+//= require angular-ui-sortable
 //= require_tree ../templates
 //= require_tree .
 

@@ -2,7 +2,8 @@ angular
   .module('AngularDoer', [
     'ngRoute',
     'templates',
-    'ngSanitize'
+    'ngSanitize',
+    'ui.sortable'
   ]).config(function($routeProvider, $locationProvider) {
     $routeProvider
       .when('/', {
