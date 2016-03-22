@@ -18,6 +18,7 @@ angular.module('AngularDoer')
       $http.post('http://localhost:4000/v1/todos/create', { todo: newTodo }).then(
         function(successResult) {
           user.todos.push(successResult.data);
+          $scope.task = '';
         },
         function(errorResult) {
           // Need to handle the error

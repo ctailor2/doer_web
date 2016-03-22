@@ -3,12 +3,12 @@
   .row
     .col-lg-6.col-lg-offset-3
       .row
-        .form-group
-          .input-group
-            %input.form-control{ type: 'text', ng: { model: 'task' } }
-            %span.input-group-btn
-              %button.btn.btn-primary{ type: 'submit', ng: { click: 'add(task)' } } Do!
-        %h4 Task
+        %form{ name: 'todosForm', ng: { submit: 'add(task)' } }
+          .form-group
+            .input-group
+              %input.form-control{ type: 'text', name: 'task', ng: { model: 'task' } }
+              %span.input-group-btn
+                %button.btn.btn-primary{ type: 'submit' } Do!
         %ul.list-group
           %li.list-group-item{ ng: { repeat: 'todo in user.todos' } }
             {{ todo.task }}
