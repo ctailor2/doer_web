@@ -1,5 +1,13 @@
 angular.module('AngularDoer')
   .controller('TodosCtrl', function($scope, $http) {
+    $scope.sortableOptions = {
+      axis: 'y',
+      containment: 'parent',
+      revert: true,
+      cursor: 'move',
+      tolerance: 'pointer'
+    };
+
     var user = {};
 
     $scope.user = user;
