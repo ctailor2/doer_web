@@ -14,5 +14,3 @@
             {{ todo.task }}
             %button.close{ type: 'button', aria: { label: 'Close' }, ng: { click: 'remove(todo)' } }
               %span{ aria: { hidden: 'true' } } &times;
-      .row
-        %button.btn.btn-primary{ ng: { click: 'updatePositions(user.todos)' } } Update Positions

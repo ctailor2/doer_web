@@ -6,9 +6,8 @@ angular.module('AngularDoer')
       revert: true,
       cursor: 'move',
       tolerance: 'pointer',
-      update: function(event, ui) {
-        // Can probably bind position in the UI to db position to update database values
-        // since ui position gives pixel values.
+      stop: function(event, ui) {
+        updatePositions(user.todos);
       }
     };
 
@@ -50,7 +49,7 @@ angular.module('AngularDoer')
       )
     };
 
-    $scope.updatePositions = function(todos) {
+    var updatePositions = function(todos) {
       var updatedTodos = $filter('filter')(todos, function(todo, index) {
         return todo.position != index;
       });
