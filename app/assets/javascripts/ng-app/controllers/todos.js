@@ -1,4 +1,11 @@
 angular.module('AngularDoer')
+  .animation('.fade-todo', [function() {
+    return {
+      leave: function(element, doneFn) {
+        $(element).fadeOut(500, doneFn);
+      }
+    }
+  }])
   .controller('TodosCtrl', function($scope, $http, $filter) {
     $scope.sortableOptions = {
       axis: 'y',
@@ -7,7 +14,7 @@ angular.module('AngularDoer')
       cursor: 'move',
       tolerance: 'pointer',
       stop: function(event, ui) {
-        updatePositions(user.todos);
+        updatePositions(user.inactiveTodos);
       }
     };
 
@@ -17,7 +24,12 @@ angular.module('AngularDoer')
 
     $http.get('http://localhost:4000/v1/todos/index').then(
       function(successResult) {
-        user.todos = successResult.data;
+        user.activeTodos = $filter('filter')(successResult.data, function(todo, index) {
+          return todo.active;
+        });
+        user.inactiveTodos = $filter('filter')(successResult.data, function(todo, index) {
+          return !todo.active;
+        });
       },
       function(errorResult) {
         // Need to handle the error
@@ -64,6 +76,10 @@ angular.module('AngularDoer')
           // Need to handle the error
         }
       );
+    };
+
+    $scope.uncompletedTodos = function(todo) {
+      return !todo.completed;
     };
   });
 

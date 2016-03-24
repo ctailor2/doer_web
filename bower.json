@@ -6,7 +6,8 @@
       "angular-route": "latest",
       "angular-sanitize": "latest",
       "js-cookie": "latest",
-      "angular-ui-sortable": "latest"
+      "angular-ui-sortable": "latest",
+      "angular-animate": "latest"
     }
   },
   "vendor": {

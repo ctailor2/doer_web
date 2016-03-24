@@ -3,7 +3,8 @@ angular
     'ngRoute',
     'templates',
     'ngSanitize',
-    'ui.sortable'
+    'ui.sortable',
+    'ngAnimate'
   ]).config(function($routeProvider, $locationProvider) {
     $routeProvider
       .when('/', {

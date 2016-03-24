@@ -22,6 +22,7 @@
 //= require js-cookie
 //= require angular-sanitize
 //= require angular-ui-sortable
+//= require angular-animate
 //= require_tree ../templates
 //= require_tree .
 
