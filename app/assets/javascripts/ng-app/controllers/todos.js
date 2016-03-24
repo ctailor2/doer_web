@@ -1,11 +1,15 @@
 angular.module('AngularDoer')
-  .controller('TodosCtrl', function($scope, $http) {
+  .controller('TodosCtrl', function($scope, $http, $filter) {
     $scope.sortableOptions = {
       axis: 'y',
       containment: 'parent',
       revert: true,
       cursor: 'move',
-      tolerance: 'pointer'
+      tolerance: 'pointer',
+      update: function(event, ui) {
+        // Can probably bind position in the UI to db position to update database values
+        // since ui position gives pixel values.
+      }
     };
 
     var user = {};
@@ -44,6 +48,23 @@ angular.module('AngularDoer')
           // Need to handle the error
         }
       )
+    };
+
+    $scope.updatePositions = function(todos) {
+      var updatedTodos = $filter('filter')(todos, function(todo, index) {
+        return todo.position != index;
+      });
+      angular.forEach(updatedTodos, function(todo, index) {
+        todo.position = todos.indexOf(todo);
+      });
+      $http.put('http://localhost:4000/v1/todos/update_positions', { todos_attributes: updatedTodos }).then(
+        function(successResult) {
+          // Need to handle the success
+        },
+        function(errorResult) {
+          // Need to handle the error
+        }
+      );
     };
   });
 
