@@ -18,7 +18,12 @@ angular.module('AngularDoer')
       }
     };
 
-    var user = {};
+    var user = {
+      unallocatedTodos: [],
+      hasTodosToAllocate: function() {
+        return this.unallocatedTodos.length > 0;
+      }
+    };
 
     $scope.user = user;
 
@@ -37,11 +42,31 @@ angular.module('AngularDoer')
     );
 
     $scope.add = function(task) {
-      newTodo = { task: task }
-      $http.post('http://localhost:4000/v1/todos/create', { todo: newTodo }).then(
+      user.unallocatedTodos.push({ task: task });
+    };
+
+    $scope.doNow = function() {
+      var todo = user.unallocatedTodos.splice(0, 1)[0];
+      todo.active = true;
+      create(todo);
+    };
+
+    $scope.doLater = function() {
+      var todo = user.unallocatedTodos.splice(0, 1)[0];
+      todo.active = false;
+      create(todo);
+    };
+
+    var create = function(todo) {
+      $http.post('http://localhost:4000/v1/todos/create', { todo: todo }).then(
         function(successResult) {
-          user.todos.push(successResult.data);
           $scope.task = '';
+          if(todo.active) {
+            user.activeTodos.push(successResult.data);
+          } else {
+            user.inactiveTodos.push(successResult.data);
+            updatePositions(user.inactiveTodos);
+          }
         },
         function(errorResult) {
           // Need to handle the error
@@ -50,10 +75,10 @@ angular.module('AngularDoer')
     };
 
     $scope.remove = function(todo) {
-      var index = user.todos.indexOf(todo);
+      var index = user.inactiveTodos.indexOf(todo);
       $http.delete('http://localhost:4000/v1/todos/' + todo.id).then(
         function(successResult) {
-          user.todos.splice(index, 1);
+          user.inactiveTodos.splice(index, 1);
         },
         function(errorResult) {
           // Need to handle the error
