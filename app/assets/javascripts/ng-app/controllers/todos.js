@@ -75,10 +75,15 @@ angular.module('AngularDoer')
     };
 
     $scope.remove = function(todo) {
-      var index = user.inactiveTodos.indexOf(todo);
       $http.delete('http://localhost:4000/v1/todos/' + todo.id).then(
         function(successResult) {
-          user.inactiveTodos.splice(index, 1);
+          if(todo.active) {
+            var index = user.activeTodos.indexOf(todo);
+            user.activeTodos.splice(index, 1);
+          } else {
+            var index = user.inactiveTodos.indexOf(todo);
+            user.inactiveTodos.splice(index, 1);
+          }
         },
         function(errorResult) {
           // Need to handle the error
@@ -105,6 +110,10 @@ angular.module('AngularDoer')
 
     $scope.uncompletedTodos = function(todo) {
       return !todo.completed;
+    };
+
+    $scope.cancelAdd = function() {
+      user.unallocatedTodos = [];
     };
   });
 

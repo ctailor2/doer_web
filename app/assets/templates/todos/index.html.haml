@@ -2,15 +2,17 @@
 .container-fluid
   .row
     .col-lg-6.col-lg-offset-3
-      %form{ name: 'todosForm', ng: { submit: 'add(task)' } }
+      %form{ ng: { submit: 'add(task)' } }
         .form-group
           .input-group
-            %input.form-control{ type: 'text', name: 'task', ng: { model: 'task' } }
+            %input.form-control{ type: 'text', name: 'task', ng: { model: 'task', disabled: 'user.hasTodosToAllocate()' } }
             %span.input-group-btn
-              %button.btn.btn-primary{ type: 'submit' } Do!
+              %button.btn.btn-primary{ type: 'submit', ng: { show: '!user.hasTodosToAllocate()' } } Do!
+              %button.btn.btn-danger{ type: 'button', ng: { click: 'cancelAdd()', show: 'user.hasTodosToAllocate()' } }
+                %span{ style: 'font-weight:500;' } &times;
   .row
     .col-lg-1.col-lg-offset-2
-      %button.btn.btn-secondary{ type: 'button', style: 'margin-top:5px;', ng: { show: 'user.hasTodosToAllocate()', click: 'doLater()' } }
+      %button.btn.btn-primary-outline{ type: 'button', style: 'margin-top:5px;', ng: { show: 'user.hasTodosToAllocate()', click: 'doLater()' } }
         Later
         %span.octicon.octicon-triangle-right
     .col-lg-6
@@ -19,13 +21,13 @@
         .collapse#todos
           .card-block
             %ul.list-group{ ng: { model: 'user.inactiveTodos' }, ui: { sortable: 'sortableOptions' } }
-              %li.list-group-item{ ng: { repeat: 'todo in user.inactiveTodos | orderBy: position' } }
+              %li.list-group-item.fade-todo{ ng: { repeat: 'todo in user.inactiveTodos | orderBy: position' } }
                 {{ todo.task }}
-                %button.close{ type: 'button', aria: { label: 'Close' }, ng: { click: 'remove(todo)' } }
-                  %span{ aria: { hidden: 'true' } } &times;
+                %button.close{ type: 'button', ng: { click: 'remove(todo)' } }
+                  %span &times;
   .row
     .col-lg-1.col-lg-offset-2
-      %button.btn.btn-secondary{ type: 'button', style: 'margin-top:5px;', ng: { show: 'user.hasTodosToAllocate()', click: 'doNow()' } }
+      %button.btn.btn-primary-outline{ type: 'button', style: 'margin-top:5px;', ng: { show: 'user.hasTodosToAllocate()', click: 'doNow()' } }
         Now
         %span.octicon.octicon-triangle-right
     .col-lg-6
@@ -33,3 +35,5 @@
         %li.list-group-item.fade-todo{ ng: { repeat: 'todo in user.activeTodos | filter: uncompletedTodos' } }
           %input{ type: 'checkbox', ng: { model: 'todo.completed' } }
           {{ todo.task }}
+          %button.close{ type: 'button', ng: { click: 'remove(todo)' } }
+            %span &times;
