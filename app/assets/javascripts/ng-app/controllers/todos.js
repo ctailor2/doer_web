@@ -6,7 +6,7 @@ angular.module('AngularDoer')
       }
     }
   }])
-  .controller('TodosCtrl', function($scope, $http, $filter) {
+  .controller('TodosCtrl', function($scope, $http, $filter, UserService) {
     $scope.sortableOptions = {
       axis: 'y',
       containment: 'parent',
@@ -18,21 +18,17 @@ angular.module('AngularDoer')
       }
     };
 
-    var user = {
-      unallocatedTodos: [],
-      hasTodosToAllocate: function() {
-        return this.unallocatedTodos.length > 0;
-      }
-    };
-
+    var user = UserService.get();
     $scope.user = user;
 
     $http.get('http://localhost:4000/v1/todos/index').then(
       function(successResult) {
-        user.activeTodos = $filter('filter')(successResult.data, function(todo, index) {
+        // Should probably consolidate grabbing the user and todos into one api call
+        // Maybe develop a user service or model that has this behavior
+        $scope.user.activeTodos = $filter('filter')(successResult.data, function(todo, index) {
           return todo.active;
         });
-        user.inactiveTodos = $filter('filter')(successResult.data, function(todo, index) {
+        $scope.user.inactiveTodos = $filter('filter')(successResult.data, function(todo, index) {
           return !todo.active;
         });
       },
@@ -42,17 +38,17 @@ angular.module('AngularDoer')
     );
 
     $scope.add = function(task) {
-      user.unallocatedTodos.push({ task: task });
+      $scope.user.unallocatedTodos.push({ task: task });
     };
 
     $scope.doNow = function() {
-      var todo = user.unallocatedTodos.splice(0, 1)[0];
+      var todo = $scope.user.unallocatedTodos.splice(0, 1)[0];
       todo.active = true;
       create(todo);
     };
 
     $scope.doLater = function() {
-      var todo = user.unallocatedTodos.splice(0, 1)[0];
+      var todo = $scope.user.unallocatedTodos.splice(0, 1)[0];
       todo.active = false;
       create(todo);
     };
@@ -62,10 +58,10 @@ angular.module('AngularDoer')
         function(successResult) {
           $scope.task = '';
           if(todo.active) {
-            user.activeTodos.push(successResult.data);
+            $scope.user.activeTodos.push(successResult.data);
           } else {
-            user.inactiveTodos.push(successResult.data);
-            updatePositions(user.inactiveTodos);
+            $scope.user.inactiveTodos.push(successResult.data);
+            updatePositions($scope.user.inactiveTodos);
           }
         },
         function(errorResult) {
@@ -78,11 +74,11 @@ angular.module('AngularDoer')
       $http.delete('http://localhost:4000/v1/todos/' + todo.id).then(
         function(successResult) {
           if(todo.active) {
-            var index = user.activeTodos.indexOf(todo);
-            user.activeTodos.splice(index, 1);
+            var index = $scope.user.activeTodos.indexOf(todo);
+            $scope.user.activeTodos.splice(index, 1);
           } else {
-            var index = user.inactiveTodos.indexOf(todo);
-            user.inactiveTodos.splice(index, 1);
+            var index = $scope.user.inactiveTodos.indexOf(todo);
+            $scope.user.inactiveTodos.splice(index, 1);
           }
         },
         function(errorResult) {
@@ -113,7 +109,7 @@ angular.module('AngularDoer')
     };
 
     $scope.cancelAdd = function() {
-      user.unallocatedTodos = [];
+      $scope.user.unallocatedTodos = [];
     };
   });
 
