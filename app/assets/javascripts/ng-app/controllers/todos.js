@@ -80,7 +80,7 @@ angular.module('AngularDoer')
 
     $scope.remove = function(todo) {
       TodoService.destroy(todo).then(
-        function(todo) {
+        function() {
           var index = $scope.user.todos.indexOf(todo);
           $scope.user.todos.splice(index, 1);
         },
