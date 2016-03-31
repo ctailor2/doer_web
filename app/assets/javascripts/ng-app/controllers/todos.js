@@ -6,7 +6,29 @@ angular.module('AngularDoer')
       }
     }
   }])
-  .controller('TodosCtrl', function($scope, $http, $filter, UserService) {
+  .filter('active', function() {
+    return function(todos, active) {
+      var filteredTodos = [];
+      angular.forEach(todos, function(todo) {
+        if(todo.active == active) {
+          filteredTodos.push(todo);
+        }
+      });
+      return filteredTodos;
+    };
+  })
+  .filter('completed', function() {
+    return function(todos, completed) {
+      var filteredTodos = [];
+      angular.forEach(todos, function(todo) {
+        if(todo.completed == completed) {
+          filteredTodos.push(todo);
+        }
+      });
+      return filteredTodos;
+    };
+  })
+  .controller('TodosCtrl', function($scope, $http, $filter, UserService, activeFilter) {
     $scope.sortableOptions = {
       axis: 'y',
       containment: 'parent',
@@ -14,26 +36,15 @@ angular.module('AngularDoer')
       cursor: 'move',
       tolerance: 'pointer',
       stop: function(event, ui) {
-        updatePositions(user.inactiveTodos);
+        updatePositions(activeFilter($scope.user.todos, false));
       }
     };
 
-    var user = UserService.get();
-    $scope.user = user;
-
-    $http.get('http://localhost:4000/v1/todos/index').then(
-      function(successResult) {
-        // Should probably consolidate grabbing the user and todos into one api call
-        // Maybe develop a user service or model that has this behavior
-        $scope.user.activeTodos = $filter('filter')(successResult.data, function(todo, index) {
-          return todo.active;
-        });
-        $scope.user.inactiveTodos = $filter('filter')(successResult.data, function(todo, index) {
-          return !todo.active;
-        });
+    UserService.get().then(
+      function(user) {
+        $scope.user = user;
       },
       function(errorResult) {
-        // Need to handle the error
       }
     );
 
@@ -57,12 +68,8 @@ angular.module('AngularDoer')
       $http.post('http://localhost:4000/v1/todos/create', { todo: todo }).then(
         function(successResult) {
           $scope.task = '';
-          if(todo.active) {
-            $scope.user.activeTodos.push(successResult.data);
-          } else {
-            $scope.user.inactiveTodos.push(successResult.data);
-            updatePositions($scope.user.inactiveTodos);
-          }
+          $scope.user.todos.push(successResult.data);
+          updatePositions(activeFilter($scope.user.todos, false));
         },
         function(errorResult) {
           // Need to handle the error
@@ -73,13 +80,8 @@ angular.module('AngularDoer')
     $scope.remove = function(todo) {
       $http.delete('http://localhost:4000/v1/todos/' + todo.id).then(
         function(successResult) {
-          if(todo.active) {
-            var index = $scope.user.activeTodos.indexOf(todo);
-            $scope.user.activeTodos.splice(index, 1);
-          } else {
-            var index = $scope.user.inactiveTodos.indexOf(todo);
-            $scope.user.inactiveTodos.splice(index, 1);
-          }
+          var index = $scope.user.todos.indexOf(todo);
+          $scope.user.todos.splice(index, 1);
         },
         function(errorResult) {
           // Need to handle the error
@@ -102,10 +104,6 @@ angular.module('AngularDoer')
           // Need to handle the error
         }
       );
-    };
-
-    $scope.uncompletedTodos = function(todo) {
-      return !todo.completed;
     };
 
     $scope.cancelAdd = function() {
