@@ -107,6 +107,17 @@ angular.module('AngularDoer')
       );
     };
 
+    $scope.complete = function(todo) {
+      $http.put('http://localhost:4000/v1/todos/' + todo.id, { todo: todo }).then(
+        function(successResult) {
+          // Need to handle the success
+        },
+        function(errorResult) {
+          // Need to handle the error
+        }
+      );
+    };
+
     $scope.cancelAdd = function() {
       $scope.user.unallocatedTodos = [];
     };

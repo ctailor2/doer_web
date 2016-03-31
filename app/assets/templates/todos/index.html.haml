@@ -33,7 +33,7 @@
     .col-lg-6
       %ul.list-group
         %li.list-group-item.fade-todo{ ng: { repeat: 'todo in user.todos | active: true | completed: false' } }
-          %input{ type: 'checkbox', ng: { model: 'todo.completed' } }
+          %input{ type: 'checkbox', ng: { model: 'todo.completed', change: 'complete(todo)' } }
           {{ todo.task }}
           %button.close{ type: 'button', ng: { click: 'remove(todo)' } }
             %span &times;
