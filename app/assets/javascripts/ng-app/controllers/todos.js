@@ -28,7 +28,7 @@ angular.module('AngularDoer')
       return filteredTodos;
     };
   })
-  .controller('TodosCtrl', function($scope, $http, $filter, UserService, activeFilter) {
+  .controller('TodosCtrl', function($scope, $http, $filter, UserService, TodoService, activeFilter) {
     $scope.sortableOptions = {
       axis: 'y',
       containment: 'parent',
@@ -64,11 +64,12 @@ angular.module('AngularDoer')
       create(todo);
     };
 
+
     var create = function(todo) {
-      $http.post('http://localhost:4000/v1/todos/create', { todo: todo }).then(
-        function(successResult) {
+      TodoService.create(todo).then(
+        function(todo) {
           $scope.task = '';
-          $scope.user.todos.push(successResult.data);
+          $scope.user.todos.push(todo);
           updatePositions(activeFilter($scope.user.todos, false));
         },
         function(errorResult) {
@@ -78,8 +79,8 @@ angular.module('AngularDoer')
     };
 
     $scope.remove = function(todo) {
-      $http.delete('http://localhost:4000/v1/todos/' + todo.id).then(
-        function(successResult) {
+      TodoService.destroy(todo).then(
+        function(todo) {
           var index = $scope.user.todos.indexOf(todo);
           $scope.user.todos.splice(index, 1);
         },
