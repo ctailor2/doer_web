@@ -27,7 +27,7 @@
                   %span &times;
   .row
     .col-lg-1.col-lg-offset-2
-      %button.btn.btn-primary-outline{ type: 'button', style: 'margin-top:5px;', ng: { show: 'user.hasTodosToAllocate()', click: 'doNow()' } }
+      %button.btn.btn-primary-outline{ type: 'button', style: 'margin-top:5px;', ng: { show: 'user.hasTodosToAllocate()', disabled: 'user.maxedActive()', click: 'doNow()' } }
         Now
         %span.octicon.octicon-triangle-right
     .col-lg-6

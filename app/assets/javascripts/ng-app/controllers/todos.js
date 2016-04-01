@@ -75,7 +75,6 @@ angular.module('AngularDoer')
       create(todo);
     };
 
-
     var create = function(todo) {
       TodoService.create(todo).then(
         function(todo) {
