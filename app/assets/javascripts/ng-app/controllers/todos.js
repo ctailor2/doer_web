@@ -28,7 +28,18 @@ angular.module('AngularDoer')
       return filteredTodos;
     };
   })
-  .controller('TodosCtrl', function($scope, $http, $filter, UserService, TodoService, activeFilter) {
+  .filter('positionUpdated', function() {
+    return function(todos) {
+      var filteredTodos = [];
+      angular.forEach(todos, function(todo) {
+        if(todo.position != todos.indexOf(todo)) {
+          filteredTodos.push(todo);
+        }
+      });
+      return filteredTodos;
+    };
+  })
+  .controller('TodosCtrl', function($scope, $http, $filter, UserService, TodoService, activeFilter, positionUpdatedFilter) {
     $scope.sortableOptions = {
       axis: 'y',
       containment: 'parent',
@@ -36,7 +47,7 @@ angular.module('AngularDoer')
       cursor: 'move',
       tolerance: 'pointer',
       stop: function(event, ui) {
-        updatePositions(activeFilter($scope.user.todos, false));
+        updatePositions(positionUpdatedFilter(activeFilter($scope.user.todos, false)));
       }
     };
 
@@ -70,7 +81,7 @@ angular.module('AngularDoer')
         function(todo) {
           $scope.task = '';
           $scope.user.todos.push(todo);
-          updatePositions(activeFilter($scope.user.todos, false));
+          updatePositions(positionUpdatedFilter(activeFilter($scope.user.todos, false)));
         },
         function(errorResult) {
           // Need to handle the error
@@ -87,29 +98,27 @@ angular.module('AngularDoer')
         function(errorResult) {
           // Need to handle the error
         }
-      )
+      );
     };
 
     var updatePositions = function(todos) {
-      var updatedTodos = $filter('filter')(todos, function(todo, index) {
-        return todo.position != index;
-      });
-      angular.forEach(updatedTodos, function(todo, index) {
+      angular.forEach(todos, function(todo, index) {
         todo.position = todos.indexOf(todo);
+        TodoService.update(todo).then(
+          function() {
+            // Need to handle the success
+          },
+          function(errorResult) {
+            // Need to handle the error
+          }
+        );
       });
-      $http.put('http://localhost:4000/v1/todos/update_positions', { todos_attributes: updatedTodos }).then(
-        function(successResult) {
-          // Need to handle the success
-        },
-        function(errorResult) {
-          // Need to handle the error
-        }
-      );
     };
 
     $scope.complete = function(todo) {
       TodoService.update(todo).then(
         function() {
+          // Need to handle the success
         },
         function(errorResult) {
           // Need to handle the error
