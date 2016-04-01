@@ -1,5 +1,5 @@
 angular.module('AngularDoer')
-  .factory('User', function($filter, activeFilter) {
+  .factory('User', function(activeFilter) {
     var User = function(data) {
       // Default User behavior
       angular.extend(this, {

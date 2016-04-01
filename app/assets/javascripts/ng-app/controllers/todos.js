@@ -10,11 +10,10 @@ angular.module('AngularDoer')
     $scope.sortableOptions = {
       axis: 'y',
       containment: 'parent',
-      revert: true,
       cursor: 'move',
       tolerance: 'pointer',
       stop: function(event, ui) {
-        updatePositions(positionUpdatedFilter(activeFilter($scope.user.todos, false)));
+        updatePositions(activeFilter($scope.user.todos, false));
       }
     };
 
@@ -47,7 +46,7 @@ angular.module('AngularDoer')
         function(todo) {
           $scope.task = '';
           $scope.user.todos.push(todo);
-          updatePositions(positionUpdatedFilter(activeFilter($scope.user.todos, false)));
+          updatePositions(activeFilter($scope.user.todos, false));
         },
         function(errorResult) {
           // Need to handle the error
@@ -68,7 +67,10 @@ angular.module('AngularDoer')
     };
 
     var updatePositions = function(todos) {
-      angular.forEach(todos, function(todo, index) {
+      angular.forEach(positionUpdatedFilter(todos), function(todo, index) {
+        // Rapid updates are problematic with this approach. Think about
+        // what happens when an item is updated and then updated before again
+        // before the first update can post to the server
         todo.position = todos.indexOf(todo);
         TodoService.update(todo).then(
           function() {
