@@ -6,6 +6,10 @@ angular.module('AngularDoer')
         unallocatedTodos: [],
         hasTodosToAllocate: function() {
           return this.unallocatedTodos.length > 0;
+        },
+        maxActive: 2,
+        activeBoxStyle: function() {
+          return { 'height': this.maxActive * 50 + 'px' };
         }
       });
       // Hydrate from API data
