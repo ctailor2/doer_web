@@ -29,6 +29,20 @@ angular.module('AngularDoer')
         );
 
         return deferredHandler.promise;
+      },
+      update: function(todo) {
+        var deferredHandler = $q.defer();
+
+        $http.put('http://localhost:4000/v1/todos/' + todo.id, { todo: todo }).then(
+          function(successResult) {
+            deferredHandler.resolve();
+          },
+          function(errorResult) {
+            // Need to handle the error
+          }
+        );
+
+        return deferredHandler.promise;
       }
     }
   });
