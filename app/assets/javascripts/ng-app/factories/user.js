@@ -1,5 +1,5 @@
 angular.module('AngularDoer')
-  .factory('User', function(activeFilter) {
+  .factory('User', function(activeFilter, Todo) {
     var User = function(data) {
       // Default User behavior
       angular.extend(this, {
@@ -16,6 +16,10 @@ angular.module('AngularDoer')
         }
       });
       // Hydrate from API data
+      var todos = data.todos.map(function(todo) {
+        return new Todo(todo);
+      });
+      data.todos = todos;
       angular.extend(this, data);
     };
     return User;

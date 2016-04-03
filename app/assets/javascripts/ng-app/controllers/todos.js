@@ -8,6 +8,8 @@ angular.module('AngularDoer')
   }])
   .controller('TodosCtrl', function($scope, $http, $filter, UserService, TodoService, activeFilter, positionUpdatedFilter) {
     $scope.sortableOptions = {
+      // Still need to test how sorting around a disabled item works
+      items: '> li:not(.disabled)',
       axis: 'y',
       containment: 'parent',
       cursor: 'move',
@@ -68,13 +70,12 @@ angular.module('AngularDoer')
 
     var updatePositions = function(todos) {
       angular.forEach(positionUpdatedFilter(todos), function(todo, index) {
-        // Rapid updates are problematic with this approach. Think about
-        // what happens when an item is updated and then updated before again
-        // before the first update can post to the server
         todo.position = todos.indexOf(todo);
+        todo.toggleSort(false);
         TodoService.update(todo).then(
           function() {
             // Need to handle the success
+            todo.toggleSort(true);
           },
           function(errorResult) {
             // Need to handle the error

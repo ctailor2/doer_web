@@ -21,7 +21,7 @@
         .collapse#todos
           .card-block
             %ul.list-group{ ng: { model: 'user.todos' }, ui: { sortable: 'sortableOptions' } }
-              %li.list-group-item.fade-todo{ ng: { repeat: 'todo in user.todos | active: false | orderBy: position' } }
+              %li.list-group-item.fade-todo{ ng: { class: 'todo.sortableClass', repeat: 'todo in user.todos | active: false | orderBy: position' } }
                 {{ todo.task }}
                 %button.close{ type: 'button', ng: { click: 'remove(todo)' } }
                   %span &times;
