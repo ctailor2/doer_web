@@ -8,11 +8,16 @@ angular.module('AngularDoer')
           return this.unallocatedTodos.length > 0;
         },
         maxActive: 2,
-        activeBoxStyle: function() {
-          return { 'height': this.maxActive * 57 + 'px' };
-        },
         maxedActive: function() {
           return activeFilter(this.todos, true).length >= this.maxActive;
+        },
+        // Not crazy about all this styling living here
+        todoHeight: 57,
+        todoStyle: function() {
+          return { 'height': this.todoHeight + 'px' };
+        },
+        activeBoxStyle: function() {
+          return { 'height': this.maxActive * this.todoHeight + 'px' };
         }
       });
       // Hydrate from API data

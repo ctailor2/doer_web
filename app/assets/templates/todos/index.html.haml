@@ -32,7 +32,7 @@
         %span.octicon.octicon-triangle-right
     .col-lg-6
       %ul.list-group{ style: 'width:auto; border-radius:0.25em; background-color:#F5F5F5;', ng: { style: 'user.activeBoxStyle()' } }
-        %li.list-group-item.fade-todo{ ng: { repeat: 'todo in user.todos | active: true | completed: false' }, style: 'height:57px;' }
+        %li.list-group-item.fade-todo{ ng: { repeat: 'todo in user.todos | active: true | completed: false', style: 'user.todoStyle()' } }
           %input{ type: 'checkbox', ng: { model: 'todo.completed', change: 'complete(todo)' } }
           {{ todo.task }}
           %button.btn.btn-secondary.btn-sm{ ng: { show: 'user.hasTodosToAllocate() && user.maxedActive()', click: 'makeInactive(todo)' } }
