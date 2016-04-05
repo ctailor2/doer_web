@@ -98,5 +98,11 @@ angular.module('AngularDoer')
     $scope.cancelAdd = function() {
       $scope.user.unallocatedTodos = [];
     };
+
+    $scope.makeInactive = function(todo) {
+      todo.active = false;
+      $scope.user.todos.moveToFront(todo);
+      updatePositions(activeFilter($scope.user.todos, false));
+    };
   });
 

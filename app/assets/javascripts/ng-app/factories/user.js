@@ -9,7 +9,7 @@ angular.module('AngularDoer')
         },
         maxActive: 2,
         activeBoxStyle: function() {
-          return { 'height': this.maxActive * 50 + 'px' };
+          return { 'height': this.maxActive * 57 + 'px' };
         },
         maxedActive: function() {
           return activeFilter(this.todos, true).length >= this.maxActive;

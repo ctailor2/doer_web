@@ -1,12 +1,12 @@
 angular.module('AngularDoer')
-  .service('TodoService', function($http, $q) {
+  .service('TodoService', function($http, $q, Todo) {
     return {
       create: function(todo) {
         var deferredHandler = $q.defer();
 
         $http.post('http://localhost:4000/v1/todos/create', { todo: todo }).then(
           function(successResult) {
-            var todo = successResult.data;
+            var todo = new Todo(successResult.data);
             deferredHandler.resolve(todo);
           },
           function(errorResult) {
