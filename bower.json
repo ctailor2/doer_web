@@ -13,7 +13,9 @@
   "vendor": {
     "name": "bower-rails generated vendor assets",
     "dependencies": {
-      "octicons": "*"
+      "octicons": "*",
+      "moment": "latest",
+      "moment-timezone": "latest"
     }
   }
 }
