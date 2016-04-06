@@ -24,7 +24,7 @@ angular.module('AngularDoer')
             deferredHandler.resolve();
           },
           function(errorResult) {
-            // Need to handle the error
+            deferredHandler.reject();
           }
         );
 
@@ -38,7 +38,7 @@ angular.module('AngularDoer')
             deferredHandler.resolve();
           },
           function(errorResult) {
-            // Need to handle the error
+            deferredHandler.reject();
           }
         );
 

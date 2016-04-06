@@ -24,6 +24,7 @@ angular.module('AngularDoer')
         $scope.user = user;
       },
       function(errorResult) {
+        // Should probably pop a login modal here
       }
     );
 
@@ -57,13 +58,14 @@ angular.module('AngularDoer')
     };
 
     $scope.remove = function(todo) {
+      var index = $scope.user.todos.indexOf(todo);
+      $scope.user.todos.splice(index, 1);
       TodoService.destroy(todo).then(
         function() {
-          var index = $scope.user.todos.indexOf(todo);
-          $scope.user.todos.splice(index, 1);
+          // no op
         },
         function(errorResult) {
-          // Need to handle the error
+          $scope.user.todos.splice(index, 0, todo);
         }
       );
     };
@@ -77,8 +79,13 @@ angular.module('AngularDoer')
             // Need to handle the success
             todo.toggleSort(true);
           },
-          function(errorResult) {
+          function() {
             // Need to handle the error
+            // Maybe make a copy of the object before the request in case it needs
+            // to be put back
+            // This one is tricky to reverse since there will be multiple requests
+            // out at the same time that are being processed at the same time.
+            // Maybe this is enough to warrant a bulk update action?
           }
         );
       });
@@ -87,10 +94,10 @@ angular.module('AngularDoer')
     $scope.complete = function(todo) {
       TodoService.update(todo).then(
         function() {
-          // Need to handle the success
+          // no op
         },
-        function(errorResult) {
-          // Need to handle the error
+        function() {
+          todo.completed = !todo.completed;
         }
       );
     };
