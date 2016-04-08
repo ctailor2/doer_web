@@ -1,0 +1,8 @@
+.container-fluid
+  .row
+    .col-lg-4.col-lg-offset-4
+      %form
+        .form-group
+          = label_tag :timezone
+          = select_tag :timezone, options_for_select(timezone_options), { class: 'form-control', 'ng-model' => 'user.timezone' }
+

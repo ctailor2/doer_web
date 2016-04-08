@@ -23,6 +23,8 @@
 //= require angular-sanitize
 //= require angular-ui-sortable
 //= require angular-animate
+//= require moment
+//= require moment-timezone
 //= require_tree .
 
 $.ajaxSetup({
