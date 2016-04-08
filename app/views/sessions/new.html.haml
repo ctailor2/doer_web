@@ -1,7 +1,6 @@
-.container
+.container-fluid
   .row
-    .col-lg-4
-    .col-lg-4
+    .col-lg-4.col-lg-offset-4
       = form_tag('http://localhost:4000/v1/users/login', method: :post, remote: true, id: 'login_form') do
         .form-group
           = label :user, :email
@@ -10,7 +9,6 @@
           = label :user, :password
           = password_field :user, :password, class: 'form-control'
         = submit_tag 'Submit', class: 'btn btn-primary'
-    .col-lg-4
 
 :javascript
   $('#login_form').on('ajax:success', function(event, data, status, xhr) {
