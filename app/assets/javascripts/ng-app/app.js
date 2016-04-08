@@ -5,12 +5,7 @@ angular
     'ngSanitize',
     'ui.sortable',
     'ngAnimate'
-  ]).config(function($routeProvider, $locationProvider) {
-    $routeProvider
-      .when('/', {
-        templateUrl: 'todos/index.html',
-        controller: 'TodosCtrl'
-      });
+  ]).config(function($locationProvider) {
     $locationProvider.html5Mode(true);
   }).config(function($httpProvider) {
     $httpProvider.defaults.headers.common['Client-Token'] = 'Cwi2R8cYVwPocG4zUmdQxPEDkPcWrXQk'

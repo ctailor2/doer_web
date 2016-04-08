@@ -9,5 +9,6 @@
 %body{ style: 'padding-top:70px;' }
   %div{ @body_attrs }
     %div{ @view_container_attrs }
+      = render 'layouts/header'
       = yield
 

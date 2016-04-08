@@ -7,14 +7,14 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def angular_view
-    @body_attrs = { ng: { app: 'AngularDoer' } }
-    @view_container_attrs = { ng: { view: '' } }
+  def regular_view
+    @body_attrs = {}
+    @view_container_attrs = {}
   end
 
-  def regular_view
-    @body_attrs = { data: { no: { turbolink: 'true' } } }
-    @view_container_attrs = {}
+  def angular_view(angular_controller)
+    @body_attrs = { data: { no: { turbolink: 'true' } }, ng: { app: 'AngularDoer' } }
+    @view_container_attrs = { ng: { controller: angular_controller } }
   end
 
   def authenticate!
