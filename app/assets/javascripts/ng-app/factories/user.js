@@ -1,5 +1,5 @@
 angular.module('AngularDoer')
-  .factory('User', function(activeFilter, Todo) {
+  .factory('User', function(activeFilter, completedFilter, Todo) {
     var User = function(data) {
       // Default User behavior
       angular.extend(this, {
@@ -9,7 +9,7 @@ angular.module('AngularDoer')
         },
         maxActive: 2,
         maxedActive: function() {
-          return activeFilter(this.todos, true).length >= this.maxActive;
+          return completedFilter(activeFilter(this.todos, true), false).length >= this.maxActive;
         },
         // Not crazy about all this styling living here
         todoHeight: 57,
