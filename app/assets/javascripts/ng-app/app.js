@@ -4,7 +4,8 @@ angular
     'templates',
     'ngSanitize',
     'ui.sortable',
-    'ngAnimate'
+    'ngAnimate',
+    'ngProgress'
   ]).config(function($locationProvider) {
     $locationProvider.html5Mode(true);
   }).config(function($httpProvider) {

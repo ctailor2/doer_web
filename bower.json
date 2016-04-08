@@ -15,7 +15,8 @@
     "dependencies": {
       "octicons": "*",
       "moment": "latest",
-      "moment-timezone": "latest"
+      "moment-timezone": "latest",
+      "ngprogress": "latest"
     }
   }
 }

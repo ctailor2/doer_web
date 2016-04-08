@@ -25,6 +25,7 @@
 //= require angular-animate
 //= require moment
 //= require moment-timezone
+//= require ngprogress
 //= require_tree .
 
 $.ajaxSetup({
