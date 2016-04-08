@@ -1,11 +1,4 @@
 angular.module('AngularDoer')
-  .animation('.fade-todo', [function() {
-    return {
-      leave: function(element, doneFn) {
-        $(element).fadeOut(500, doneFn);
-      }
-    }
-  }])
   .controller('TodosCtrl', function($scope, $http, $filter, UserService, TodoService, activeFilter, positionUpdatedFilter) {
     $scope.sortableOptions = {
       // Still need to test how sorting around a disabled item works
