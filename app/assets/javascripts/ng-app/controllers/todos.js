@@ -1,5 +1,5 @@
 angular.module('AngularDoer')
-  .controller('TodosCtrl', function($scope, $http, $filter, UserService, TodoService, activeFilter, positionUpdatedFilter) {
+  .controller('TodosCtrl', function($scope, $http, $filter, progressBar, UserService, TodoService, activeFilter, positionUpdatedFilter) {
     $scope.sortableOptions = {
       // Still need to test how sorting around a disabled item works
       items: '> li:not(.disabled)',
@@ -12,8 +12,13 @@ angular.module('AngularDoer')
       }
     };
 
+    $scope.progressBar = progressBar;
+
+    $scope.progressBar.start();
+
     UserService.get().then(
       function(user) {
+        $scope.progressBar.complete();
         $scope.user = user;
       },
       function(errorResult) {
@@ -38,8 +43,11 @@ angular.module('AngularDoer')
     };
 
     var create = function(todo) {
+      $scope.progressBar.start();
+
       TodoService.create(todo).then(
         function(todo) {
+          $scope.progressBar.complete();
           $scope.task = '';
           $scope.user.todos.push(todo);
           updatePositions(activeFilter($scope.user.todos, false));
@@ -53,9 +61,11 @@ angular.module('AngularDoer')
     $scope.remove = function(todo) {
       var index = $scope.user.todos.indexOf(todo);
       $scope.user.todos.splice(index, 1);
+      $scope.progressBar.start();
+
       TodoService.destroy(todo).then(
         function() {
-          // no op
+          $scope.progressBar.complete();
         },
         function(errorResult) {
           $scope.user.todos.splice(index, 0, todo);
@@ -67,10 +77,13 @@ angular.module('AngularDoer')
       angular.forEach(positionUpdatedFilter(todos), function(todo, index) {
         todo.position = todos.indexOf(todo);
         todo.toggleSort(false);
+        $scope.progressBar.start();
+
         TodoService.update(todo).then(
           function() {
             // Need to handle the success
             todo.toggleSort(true);
+            $scope.progressBar.complete();
           },
           function() {
             // Need to handle the error
@@ -85,9 +98,11 @@ angular.module('AngularDoer')
     };
 
     $scope.complete = function(todo) {
+      $scope.progressBar.start();
+
       TodoService.update(todo).then(
         function() {
-          // no op
+          $scope.progressBar.complete();
         },
         function() {
           todo.completed = !todo.completed;
