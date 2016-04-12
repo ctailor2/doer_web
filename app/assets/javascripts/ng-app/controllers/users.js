@@ -13,5 +13,17 @@ angular.module('AngularDoer')
         // Should probably pop a login modal here
       }
     );
+
+    $scope.update = function(user) {
+      $scope.progressBar.start();
+
+      UserService.update(user).then(
+        function() {
+          $scope.progressBar.complete();
+        },
+        function(errorResult) {
+        }
+      )
+    };
   });
 
