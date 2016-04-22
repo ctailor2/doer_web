@@ -42,4 +42,4 @@
           %button.close{ type: 'button', ng: { click: 'remove(todo)' } }
             %span &times;
     .col-lg-1
-      %span.label.label-primary{ style: 'position:absolute;' } {{ user.completed }} / {{ user.maxActive }}
+      %span.label{ style: 'position:absolute;', ng: { class: 'user.progressLabelClass()' } } {{ user.completed }} / {{ user.maxActive }}

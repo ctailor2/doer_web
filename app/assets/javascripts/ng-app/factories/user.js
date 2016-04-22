@@ -12,6 +12,15 @@ angular.module('AngularDoer')
           return completedFilter(activeFilter(this.todos, true), false).length >= this.maxActive;
         },
         // Not crazy about all this styling living here
+        // Maybe replace ng: :style calls with ng: :class and wrap all this styling
+        // in css classes
+        progressLabelClass: function() {
+          if(this.completed >= this.maxActive) {
+            return 'label-success'
+          } else {
+            return 'label-primary'
+          }
+        },
         todoHeight: 57,
         todoStyle: function() {
           return { 'height': this.todoHeight + 'px' };
