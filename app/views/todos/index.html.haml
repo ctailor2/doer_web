@@ -30,6 +30,9 @@
         Now
         %span.octicon.octicon-chevron-right
     .col-lg-6
+      / To indicate greater than 100% of the goal
+      %span{ style: 'position:absolute; width:2px; height: 16px; background-color:white;', ng: { style: 'user.goalIndicatorStyle()' } }
+      %progress.progress{ value: '{{ user.completed }}', max: '{{ user.maxActive }}' }
       %ul.list-group{ style: 'width:auto; border-radius:0.25em; background-color:#F5F5F5;', ng: { style: 'user.activeBoxStyle()' } }
         %li.list-group-item{ ng: { repeat: 'todo in user.todos | active: true | completed: false', style: 'user.todoStyle()' } }
           %input{ type: 'checkbox', ng: { model: 'todo.completed', change: 'complete(todo)' } }
@@ -38,3 +41,5 @@
             %span.octicon.octicon-chevron-up
           %button.close{ type: 'button', ng: { click: 'remove(todo)' } }
             %span &times;
+    .col-lg-1
+      %span.label.label-primary{ style: 'position:absolute;' } {{ user.completed }} / {{ user.maxActive }}

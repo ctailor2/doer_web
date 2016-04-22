@@ -18,6 +18,11 @@ angular.module('AngularDoer')
         },
         activeBoxStyle: function() {
           return { 'height': this.maxActive * this.todoHeight + 'px' };
+        },
+        progressBarWidth: 625,
+        goalIndicatorStyle: function() {
+          var leftPosition = this.maxActive * 1.0 / this.completed * this.progressBarWidth;
+          return { 'left': leftPosition + 'px' };
         }
       });
       // Hydrate from API data

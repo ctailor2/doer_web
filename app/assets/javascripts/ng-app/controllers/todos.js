@@ -103,6 +103,7 @@ angular.module('AngularDoer')
       TodoService.update(todo).then(
         function() {
           $scope.progressBar.complete();
+          $scope.user.completed += 1;
         },
         function() {
           todo.completed = !todo.completed;
