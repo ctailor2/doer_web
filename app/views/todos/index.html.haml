@@ -10,6 +10,28 @@
               %button.btn.btn-danger{ type: 'button', ng: { click: 'cancelAdd()', show: 'user.hasTodosToAllocate()' } }
                 %span{ style: 'font-weight:500;' } &times;
   .row
+    .col-lg-6.col-lg-offset-3
+      %span{ style: 'position:absolute; width:2px; height: 16px; background-color:white;', ng: { style: 'user.goalIndicatorStyle()' } }
+      %progress.progress{ value: '{{ user.completed }}', max: '{{ user.maxActive }}' }
+    .col-lg-1
+      %span.label{ style: 'position:absolute;', ng: { class: 'user.progressLabelClass()' } } {{ user.completed }} / {{ user.maxActive }}
+  .row
+    .col-lg-1.col-lg-offset-2
+      %button.btn.btn-primary-outline{ type: 'button', style: 'margin-top:5px;', ng: { show: 'user.hasTodosToAllocate()', disabled: 'user.maxedActive()', click: 'doNow()' } }
+        Now
+        %span.octicon.octicon-chevron-right
+    .col-lg-6
+      %ul.list-group{ style: 'width:auto; border-radius:0.25em; background-color:#F5F5F5; margin-bottom:1em;', ng: { style: 'user.activeBoxStyle()' } }
+        %button.btn.btn-secondary{ style: 'display:block; position:relative; margin:auto;', ng: { show: 'user.emptyActive()', style: 'user.pullInactiveTodosBtnStyle()' } }
+          %span.octicon.octicon-chevron-up
+        %li.list-group-item{ ng: { repeat: 'todo in user.todos | active: true | completed: false', style: 'user.todoStyle()' } }
+          %input{ type: 'checkbox', ng: { model: 'todo.completed', change: 'complete(todo)' } }
+          {{ todo.task }}
+          %button.btn.btn-secondary.btn-sm{ ng: { show: 'user.hasTodosToAllocate() && user.maxedActive()', click: 'makeInactive(todo)' } }
+            %span.octicon.octicon-chevron-down
+          %button.close{ type: 'button', ng: { click: 'remove(todo)' } }
+            %span &times;
+  .row
     .col-lg-1.col-lg-offset-2
       %button.btn.btn-primary-outline{ type: 'button', style: 'margin-top:5px;', ng: { show: 'user.hasTodosToAllocate()', click: 'doLater()' } }
         Later
@@ -24,22 +46,3 @@
                 {{ todo.task }}
                 %button.close{ type: 'button', ng: { click: 'remove(todo)' } }
                   %span &times;
-  .row
-    .col-lg-1.col-lg-offset-2
-      %button.btn.btn-primary-outline{ type: 'button', style: 'margin-top:5px;', ng: { show: 'user.hasTodosToAllocate()', disabled: 'user.maxedActive()', click: 'doNow()' } }
-        Now
-        %span.octicon.octicon-chevron-right
-    .col-lg-6
-      / To indicate greater than 100% of the goal
-      %span{ style: 'position:absolute; width:2px; height: 16px; background-color:white;', ng: { style: 'user.goalIndicatorStyle()' } }
-      %progress.progress{ value: '{{ user.completed }}', max: '{{ user.maxActive }}' }
-      %ul.list-group{ style: 'width:auto; border-radius:0.25em; background-color:#F5F5F5;', ng: { style: 'user.activeBoxStyle()' } }
-        %li.list-group-item{ ng: { repeat: 'todo in user.todos | active: true | completed: false', style: 'user.todoStyle()' } }
-          %input{ type: 'checkbox', ng: { model: 'todo.completed', change: 'complete(todo)' } }
-          {{ todo.task }}
-          %button.btn.btn-secondary.btn-sm{ ng: { show: 'user.hasTodosToAllocate() && user.maxedActive()', click: 'makeInactive(todo)' } }
-            %span.octicon.octicon-chevron-up
-          %button.close{ type: 'button', ng: { click: 'remove(todo)' } }
-            %span &times;
-    .col-lg-1
-      %span.label{ style: 'position:absolute;', ng: { class: 'user.progressLabelClass()' } } {{ user.completed }} / {{ user.maxActive }}
