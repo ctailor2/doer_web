@@ -81,7 +81,6 @@ angular.module('AngularDoer')
 
         TodoService.update(todo).then(
           function() {
-            // Need to handle the success
             todo.toggleSort(true);
             $scope.progressBar.complete();
           },
@@ -118,6 +117,22 @@ angular.module('AngularDoer')
     $scope.makeInactive = function(todo) {
       todo.active = false;
       $scope.user.todos.moveToFront(todo);
+      updatePositions(activeFilter($scope.user.todos, false));
+    };
+
+    $scope.pullInactiveTodos = function() {
+      var numToPull = $scope.user.maxActive
+      var todosToPull = activeFilter($scope.user.todos, false).slice(0, numToPull)
+      angular.forEach(todosToPull, function(todo) {
+        todo.active = true;
+        todo.position = null;
+        TodoService.update(todo).then(
+          function() {
+          },
+          function() {
+          }
+        );
+      });
       updatePositions(activeFilter($scope.user.todos, false));
     };
   });

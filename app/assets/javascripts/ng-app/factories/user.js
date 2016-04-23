@@ -11,6 +11,9 @@ angular.module('AngularDoer')
         maxedActive: function() {
           return completedFilter(activeFilter(this.todos, true), false).length >= this.maxActive;
         },
+        emptyActive: function() {
+          return completedFilter(activeFilter(this.todos, true), false).length == 0;
+        },
         // Not crazy about all this styling living here
         // Maybe replace ng: :style calls with ng: :class and wrap all this styling
         // in css classes
@@ -32,6 +35,10 @@ angular.module('AngularDoer')
         goalIndicatorStyle: function() {
           var leftPosition = this.maxActive * 1.0 / this.completed * this.progressBarWidth;
           return { 'left': leftPosition + 'px' };
+        },
+        pullInactiveTodosBtnStyle: function() {
+          var topPosition = this.maxActive * this.todoHeight * 1.0 / 2 - 19;
+          return { 'top':  topPosition + 'px' };
         }
       });
       // Hydrate from API data

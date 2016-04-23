@@ -22,7 +22,7 @@
         %span.octicon.octicon-chevron-right
     .col-lg-6
       %ul.list-group{ style: 'width:auto; border-radius:0.25em; background-color:#F5F5F5; margin-bottom:1em;', ng: { style: 'user.activeBoxStyle()' } }
-        %button.btn.btn-secondary{ style: 'display:block; position:relative; margin:auto;', ng: { show: 'user.emptyActive()', style: 'user.pullInactiveTodosBtnStyle()' } }
+        %button.btn.btn-secondary{ style: 'display:block; position:relative; margin:auto;', ng: { show: 'user.emptyActive()', style: 'user.pullInactiveTodosBtnStyle()', click: 'pullInactiveTodos()' } }
           %span.octicon.octicon-chevron-up
         %li.list-group-item{ ng: { repeat: 'todo in user.todos | active: true | completed: false', style: 'user.todoStyle()' } }
           %input{ type: 'checkbox', ng: { model: 'todo.completed', change: 'complete(todo)' } }
