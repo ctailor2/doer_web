@@ -8,7 +8,7 @@ angular.module('AngularDoer')
       cursor: 'move',
       tolerance: 'pointer',
       stop: function(event, ui) {
-        updatePositions(activeFilter($scope.user.todos, false));
+        updatePositions();
       }
     };
 
@@ -21,7 +21,7 @@ angular.module('AngularDoer')
         $scope.progressBar.complete();
         $scope.user = user;
       },
-      function(errorResult) {
+      function() {
         // Should probably pop a login modal here
       }
     );
@@ -50,9 +50,9 @@ angular.module('AngularDoer')
           $scope.progressBar.complete();
           $scope.task = '';
           $scope.user.todos.push(todo);
-          updatePositions(activeFilter($scope.user.todos, false));
+          updatePositions();
         },
-        function(errorResult) {
+        function() {
           // Need to handle the error
         }
       );
@@ -67,33 +67,36 @@ angular.module('AngularDoer')
         function() {
           $scope.progressBar.complete();
         },
-        function(errorResult) {
+        function() {
           $scope.user.todos.splice(index, 0, todo);
         }
       );
     };
 
-    var updatePositions = function(todos) {
-      angular.forEach(positionUpdatedFilter(todos), function(todo, index) {
+    var updatePositions = function() {
+      var todos = activeFilter($scope.user.todos, false);
+      var updatedTodos = positionUpdatedFilter(todos).map(function(todo, index) {
         todo.position = todos.indexOf(todo);
         todo.toggleSort(false);
-        $scope.progressBar.start();
-
-        TodoService.update(todo).then(
-          function() {
-            todo.toggleSort(true);
-            $scope.progressBar.complete();
-          },
-          function() {
-            // Need to handle the error
-            // Maybe make a copy of the object before the request in case it needs
-            // to be put back
-            // This one is tricky to reverse since there will be multiple requests
-            // out at the same time that are being processed at the same time.
-            // Maybe this is enough to warrant a bulk update action?
-          }
-        );
+        return todo;
       });
+      $scope.progressBar.start();
+
+      TodoService.bulkUpdate(updatedTodos).then(
+        function() {
+          $scope.progressBar.complete();
+          angular.forEach(updatedTodos, function(todo, index) {
+            todo.toggleSort(true);
+          });
+        },
+        function() {
+          // Need to handle the error
+          // Maybe make a copy of the object before the request in case it needs
+          // to be put back
+          // This one is tricky to reverse since there will be multiple requests
+          // out at the same time that are being processed at the same time.
+        }
+      );
     };
 
     $scope.complete = function(todo) {
@@ -117,23 +120,26 @@ angular.module('AngularDoer')
     $scope.makeInactive = function(todo) {
       todo.active = false;
       $scope.user.todos.moveToFront(todo);
-      updatePositions(activeFilter($scope.user.todos, false));
+      updatePositions();
     };
 
     $scope.pullInactiveTodos = function() {
       var numToPull = $scope.user.maxActive
-      var todosToPull = activeFilter($scope.user.todos, false).slice(0, numToPull)
-      angular.forEach(todosToPull, function(todo) {
+      var todosToPull = activeFilter($scope.user.todos, false).slice(0, numToPull).map(function(todo) {
         todo.active = true;
         todo.position = null;
-        TodoService.update(todo).then(
-          function() {
-          },
-          function() {
-          }
-        );
+        return todo;
       });
-      updatePositions(activeFilter($scope.user.todos, false));
+      $scope.progressBar.start();
+
+      TodoService.bulkUpdate(todosToPull).then(
+        function() {
+          $scope.progressBar.complete();
+        },
+        function() {
+        }
+      );
+      updatePositions();
     };
   });
 

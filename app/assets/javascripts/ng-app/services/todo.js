@@ -43,6 +43,20 @@ angular.module('AngularDoer')
         );
 
         return deferredHandler.promise;
+      },
+      bulkUpdate: function(todos) {
+        var deferredHandler = $q.defer();
+
+        $http.put('http://localhost:4000/v1/todos/bulk_update', { todos_attributes: todos }).then(
+          function(successResult) {
+            deferredHandler.resolve();
+          },
+          function(errorResult) {
+            deferredHandler.reject();
+          }
+        );
+
+        return deferredHandler.promise;
       }
     }
   });
