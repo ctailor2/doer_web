@@ -42,10 +42,14 @@ angular.module('AngularDoer')
         }
       });
       // Hydrate from API data
-      var todos = data.todos.map(function(todo) {
-        return new Todo(todo);
-      });
-      data.todos = todos;
+      // -- assocs
+      if(angular.isDefined(data.todos)) {
+        var todos = data.todos.map(function(todo) {
+          return new Todo(todo);
+        });
+        data.todos = todos;
+      }
+      // -- base
       angular.extend(this, data);
     };
     return User;

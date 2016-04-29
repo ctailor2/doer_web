@@ -1,10 +1,10 @@
 angular.module('AngularDoer')
   .service('UserService', function($http, $q, User) {
     return {
-      get: function() {
+      get: function(params) {
         var deferredHandler = $q.defer();
 
-        $http.get('http://localhost:4000/v1/users/show').then(
+        $http.get('http://localhost:4000/v1/users/show', { params: params }).then(
           function(successResult) {
             var user = new User(successResult.data);
             deferredHandler.resolve(user);

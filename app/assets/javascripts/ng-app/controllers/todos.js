@@ -16,7 +16,7 @@ angular.module('AngularDoer')
 
     $scope.progressBar.start();
 
-    UserService.get().then(
+    UserService.get({ with_assocs: ['todos'] }).then(
       function(user) {
         $scope.progressBar.complete();
         $scope.user = user;
