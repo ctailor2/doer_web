@@ -124,7 +124,7 @@ angular.module('AngularDoer')
     };
 
     $scope.pullInactiveTodos = function() {
-      var numToPull = $scope.user.maxActive
+      var numToPull = $scope.user.goal_setting_attributes.target
       var todosToPull = activeFilter($scope.user.todos, false).slice(0, numToPull).map(function(todo) {
         todo.active = true;
         todo.position = null;

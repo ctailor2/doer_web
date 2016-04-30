@@ -7,9 +7,8 @@ angular.module('AngularDoer')
         hasTodosToAllocate: function() {
           return this.unallocatedTodos.length > 0;
         },
-        maxActive: 2,
         maxedActive: function() {
-          return completedFilter(activeFilter(this.todos, true), false).length >= this.maxActive;
+          return completedFilter(activeFilter(this.todos, true), false).length >= this.goal_setting_attributes.target;
         },
         emptyActive: function() {
           return completedFilter(activeFilter(this.todos, true), false).length == 0;
@@ -18,7 +17,7 @@ angular.module('AngularDoer')
         // Maybe replace ng: :style calls with ng: :class and wrap all this styling
         // in css classes
         progressLabelClass: function() {
-          if(this.completed >= this.maxActive) {
+          if(this.completed >= this.goal_setting_attributes.target) {
             return 'label-success'
           } else {
             return 'label-primary'
@@ -29,15 +28,15 @@ angular.module('AngularDoer')
           return { 'height': this.todoHeight + 'px' };
         },
         activeBoxStyle: function() {
-          return { 'height': this.maxActive * this.todoHeight + 'px' };
+          return { 'height': this.goal_setting_attributes.target * this.todoHeight + 'px' };
         },
         progressBarWidth: 625,
         goalIndicatorStyle: function() {
-          var leftPosition = this.maxActive * 1.0 / this.completed * this.progressBarWidth;
+          var leftPosition = this.goal_setting_attributes.target * 1.0 / this.completed * this.progressBarWidth;
           return { 'left': leftPosition + 'px' };
         },
         pullInactiveTodosBtnStyle: function() {
-          var topPosition = this.maxActive * this.todoHeight * 1.0 / 2 - 19;
+          var topPosition = this.goal_setting_attributes.target * this.todoHeight * 1.0 / 2 - 19;
           return { 'top':  topPosition + 'px' };
         }
       });
