@@ -12,6 +12,10 @@
           = label :user, :password_confirmation
           = password_field :user, :password_confirmation, class: 'form-control'
         = submit_tag 'Submit', class: 'btn btn-primary'
+      %p
+        %em.small
+          Already registered?
+          = link_to 'Login', login_path, target: '_self'
 
 :javascript
   $('#signup_form').on('ajax:success', function(event, data, status, xhr) {

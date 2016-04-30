@@ -9,6 +9,10 @@
           = label :user, :password
           = password_field :user, :password, class: 'form-control'
         = submit_tag 'Submit', class: 'btn btn-primary'
+      %p
+        %em.small
+          Not registered yet?
+          = link_to 'Sign up', register_path, target: '_self'
 
 :javascript
   $('#login_form').on('ajax:success', function(event, data, status, xhr) {
