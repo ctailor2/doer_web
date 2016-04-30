@@ -1,10 +1,10 @@
 angular.module('AngularDoer')
-  .service('UserService', function($http, $q, User) {
+  .service('UserService', function($http, $q, apiConfig, User) {
     return {
       get: function(params) {
         var deferredHandler = $q.defer();
 
-        $http.get('http://localhost:4000/v1/users/show', { params: params }).then(
+        $http.get(apiConfig.url() + '/v1/users/show', { params: params }).then(
           function(successResult) {
             var user = new User(successResult.data);
             deferredHandler.resolve(user);
@@ -19,7 +19,7 @@ angular.module('AngularDoer')
       update: function(user) {
         var deferredHandler = $q.defer();
 
-        $http.put('http://localhost:4000/v1/users/update', { user: user }).then(
+        $http.put(apiConfig.url() + '/v1/users/update', { user: user }).then(
           function(successResult) {
             deferredHandler.resolve();
           },

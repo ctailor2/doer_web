@@ -6,9 +6,18 @@ angular
     'ui.sortable',
     'ngAnimate',
     'ngProgress'
-  ]).config(function($locationProvider) {
+  ])
+  .constant('apiConfig', {
+    'host': 'http://localhost',
+    'port': '4000',
+    'url': function() {
+      return [this.host, this.port].join(':');
+    }
+  })
+  .config(function($locationProvider) {
     $locationProvider.html5Mode(true);
-  }).config(function($httpProvider) {
+  })
+  .config(function($httpProvider) {
     $httpProvider.defaults.headers.common['Client-Token'] = 'Cwi2R8cYVwPocG4zUmdQxPEDkPcWrXQk'
     $httpProvider.defaults.headers.common['Session-Token'] = Cookies.get('token')
   });
