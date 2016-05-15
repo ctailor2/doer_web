@@ -6,13 +6,15 @@
           = label_tag :timezone
           = select_tag :timezone, options_for_select(timezone_options), { class: 'form-control', 'ng-model' => 'user.timezone', 'ng-change' => 'update(user)' }
         .form-group
-          = label_tag :daily_goal
+          = label_tag :daily_goal, 'Daily Goal'
           .input-group
             %span.input-group-btn
-              %button.btn.btn-secondary{ ng: { click: 'changeGoalTarget(-1)' } }
+              %button.btn.btn-secondary{ ng: { click: 'changeGoalTarget(-1)', disabled: "user.goal_setting_attributes['updated_today?']" } }
                 %span.octicon.octicon-triangle-left
             = text_field_tag :daily_goal, nil, { class: 'form-control text-lg-center', readonly: true, 'ng-model' => 'user.goal_setting_attributes.target', 'ng-change' => 'update(user)' }
             %span.input-group-btn
-              %button.btn.btn-secondary{ ng: { click: 'changeGoalTarget(1)' } }
+              %button.btn.btn-secondary{ ng: { click: 'changeGoalTarget(1)', disabled: "user.goal_setting_attributes['updated_today?']" } }
                 %span.octicon.octicon-triangle-right
+          %small.text-muted Can only be updated once a day.
+          %small.text-muted {{ nextGoalTargetUpdateText() }}
 

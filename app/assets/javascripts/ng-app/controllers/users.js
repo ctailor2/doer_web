@@ -30,7 +30,16 @@ angular.module('AngularDoer')
 
     $scope.changeGoalTarget = function(diff) {
       $scope.user.goal_setting_attributes.target += diff;
+      $scope.user.goal_setting_attributes['updated_today?'] = true;
       update($scope.user);
+    };
+
+    $scope.nextGoalTargetUpdateText = function() {
+      if(angular.isDefined($scope.user) && $scope.user.goal_setting_attributes['updated_today?']) {
+        return "Next update allowed " + moment().endOf('day').fromNow() + ".";
+      } else {
+        return "";
+      };
     };
   });
 
