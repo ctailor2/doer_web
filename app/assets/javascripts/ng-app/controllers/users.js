@@ -4,7 +4,7 @@ angular.module('AngularDoer')
 
     $scope.progressBar.start();
 
-    UserService.get().then(
+    UserService.get({ with_assocs: ['todos'] }).then(
       function(user) {
         $scope.progressBar.complete();
         $scope.user = user;
@@ -14,7 +14,7 @@ angular.module('AngularDoer')
       }
     );
 
-    $scope.update = function(user) {
+    var update = function(user) {
       $scope.progressBar.start();
 
       UserService.update(user).then(
@@ -24,6 +24,13 @@ angular.module('AngularDoer')
         function(errorResult) {
         }
       )
+    };
+
+    $scope.update = update;
+
+    $scope.changeGoalTarget = function(diff) {
+      $scope.user.goal_setting_attributes.target += diff;
+      update($scope.user);
     };
   });
 
