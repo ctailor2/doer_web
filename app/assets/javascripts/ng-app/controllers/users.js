@@ -4,7 +4,7 @@ angular.module('AngularDoer')
 
     $scope.progressBar.start();
 
-    UserService.get({ with_assocs: ['todos'] }).then(
+    UserService.get({ with_assocs: ['todos', 'goal_setting'] }).then(
       function(user) {
         $scope.progressBar.complete();
         $scope.user = user;
