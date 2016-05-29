@@ -1,7 +1,7 @@
 .container-fluid
   .row
     .col-lg-4.col-lg-offset-4
-      = form_tag('http://localhost:4000/v1/users/login', method: :post, remote: true, id: 'login_form') do
+      = form_tag('http://localhost:4000/v1/login', method: :post, remote: true, id: 'login_form') do
         .form-group
           = label :user, :email
           = text_field :user, :email, class: 'form-control'
