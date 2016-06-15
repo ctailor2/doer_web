@@ -36,13 +36,3 @@
       %button.btn.btn-primary-outline{ type: 'button', style: 'margin-top:5px;', ng: { show: 'user.hasTodosToAllocate()', click: 'doLater()' } }
         Later
         %span.octicon.octicon-chevron-right
-    .col-lg-6
-      .card
-        .card-header{ data: { toggle: 'collapse', target: '#todos' }, style: 'cursor:pointer;' } Todos
-        .collapse#todos
-          .card-block
-            %ul.list-group{ ng: { model: 'user.todos' }, ui: { sortable: 'sortableOptions' } }
-              %li.list-group-item{ ng: { class: 'todo.sortableClass', repeat: 'todo in user.todos | active: false | orderBy: position' } }
-                {{ todo.task }}
-                %button.close{ type: 'button', ng: { click: 'remove(todo)' } }
-                  %span &times;

@@ -1,0 +1,8 @@
+.container-fluid
+  .row
+    .col-lg-6.col-lg-offset-3
+      %ul.list-group{ ng: { model: 'user.todos' }, ui: { sortable: 'sortableOptions' } }
+        %li.list-group-item{ ng: { class: 'todo.sortableClass', repeat: 'todo in user.todos | active: false | orderBy: position' } }
+          {{ todo.task }}
+          %button.close{ type: 'button', ng: { click: 'remove(todo)' } }
+            %span &times;
