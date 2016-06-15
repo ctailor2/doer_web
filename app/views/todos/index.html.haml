@@ -12,9 +12,9 @@
   .row
     .col-lg-6.col-lg-offset-3
       %span{ style: 'position:absolute; width:2px; height: 16px; background-color:white;', ng: { style: 'user.goalIndicatorStyle()' } }
-      %progress.progress{ value: '{{ user.completed }}', max: '{{ user.goal_setting_attributes.target }}' }
+      %progress.progress{ value: '{{ user.count_of_todos_completed_today }}', max: '{{ user.goal_setting_attributes.target }}' }
     .col-lg-1
-      %span.label{ style: 'position:absolute;', ng: { class: 'user.progressLabelClass()' } } {{ user.completed }} / {{ user.goal_setting_attributes.target }}
+      %span.label{ style: 'position:absolute;', ng: { class: 'user.progressLabelClass()' } } {{ user.count_of_todos_completed_today }} / {{ user.goal_setting_attributes.target }}
   .row
     .col-lg-1.col-lg-offset-2
       %button.btn.btn-primary-outline{ type: 'button', style: 'margin-top:5px;', ng: { show: 'user.hasTodosToAllocate()', disabled: 'user.maxedActive()', click: 'doNow()' } }

@@ -17,7 +17,7 @@ angular.module('AngularDoer')
         // Maybe replace ng: :style calls with ng: :class and wrap all this styling
         // in css classes
         progressLabelClass: function() {
-          if(this.completed >= this.goal_setting_attributes.target) {
+          if(this.count_of_todos_completed_today >= this.goal_setting_attributes.target) {
             return 'label-success'
           } else {
             return 'label-primary'
@@ -32,7 +32,7 @@ angular.module('AngularDoer')
         },
         progressBarWidth: 625,
         goalIndicatorStyle: function() {
-          var leftPosition = this.goal_setting_attributes.target * 1.0 / this.completed * this.progressBarWidth;
+          var leftPosition = this.goal_setting_attributes.target * 1.0 / this.count_of_todos_completed_today * this.progressBarWidth;
           return { 'left': leftPosition + 'px' };
         },
         pullInactiveTodosBtnStyle: function() {

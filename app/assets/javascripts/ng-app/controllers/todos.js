@@ -105,7 +105,7 @@ angular.module('AngularDoer')
       TodoService.update(todo).then(
         function() {
           $scope.progressBar.complete();
-          $scope.user.completed += 1;
+          $scope.user.count_of_todos_completed_today += 1;
         },
         function() {
           todo.completed = !todo.completed;
