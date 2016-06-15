@@ -34,8 +34,16 @@ angular.module('AngularDoer')
       update($scope.user);
     };
 
+    $scope.cannotChangeGoalTarget = function(diff) {
+      if(angular.isDefined($scope.user)) {
+        return ($scope.user.goal_setting_attributes['updated_today?'] || $scope.user.goal_setting_attributes.target + diff < $scope.user.count_of_active_todos);
+      } else {
+        return true;
+      };
+    }
+
     $scope.nextGoalTargetUpdateText = function() {
-      if(angular.isDefined($scope.user) && $scope.user.goal_setting_attributes['updated_today?']) {
+      if(this.cannotChangeGoalTarget(1)) {
         return "Next update allowed " + moment().endOf('day').fromNow() + ".";
       } else {
         return "";

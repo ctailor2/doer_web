@@ -8,10 +8,13 @@ angular.module('AngularDoer')
           return this.unallocatedTodos.length > 0;
         },
         maxedActive: function() {
-          return completedFilter(activeFilter(this.todos, true), false).length >= this.goal_setting_attributes.target;
+          return this.activeTodos().length >= this.goal_setting_attributes.target;
         },
         emptyActive: function() {
-          return completedFilter(activeFilter(this.todos, true), false).length == 0;
+          return this.activeTodos().length == 0;
+        },
+        activeTodos: function() {
+          return completedFilter(activeFilter(this.todos, true), false);
         },
         // Not crazy about all this styling living here
         // Maybe replace ng: :style calls with ng: :class and wrap all this styling
