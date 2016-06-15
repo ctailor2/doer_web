@@ -11,7 +11,7 @@
                 %span{ style: 'font-weight:500;' } &times;
   .row
     .col-lg-6.col-lg-offset-3
-      %span{ style: 'position:absolute; width:2px; height: 16px; background-color:white;', ng: { style: 'user.goalIndicatorStyle()' } }
+      %span{ style: 'position:absolute; width:2px; height: 16px; background-color:white;' }
       %progress.progress{ value: '{{ user.count_of_todos_completed_today }}', max: '{{ user.goal_setting_attributes.target }}' }
     .col-lg-1
       %span.label{ style: 'position:absolute;', ng: { class: 'user.progressLabelClass()' } } {{ user.count_of_todos_completed_today }} / {{ user.goal_setting_attributes.target }}

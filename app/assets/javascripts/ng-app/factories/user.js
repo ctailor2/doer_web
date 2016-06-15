@@ -33,11 +33,6 @@ angular.module('AngularDoer')
         activeBoxStyle: function() {
           return { 'height': this.goal_setting_attributes.target * this.todoHeight + 'px' };
         },
-        progressBarWidth: 625,
-        goalIndicatorStyle: function() {
-          var leftPosition = this.goal_setting_attributes.target * 1.0 / this.count_of_todos_completed_today * this.progressBarWidth;
-          return { 'left': leftPosition + 'px' };
-        },
         pullInactiveTodosBtnStyle: function() {
           var topPosition = this.goal_setting_attributes.target * this.todoHeight * 1.0 / 2 - 19;
           return { 'top':  topPosition + 'px' };
