@@ -1,15 +1,7 @@
 .container-fluid
   .row
     .col-lg-6.col-lg-offset-3
-      %form{ ng: { submit: "add(task, 'later')" } }
-        .form-group
-          .input-group
-            %input.form-control{ type: 'text', name: 'task', ng: { model: 'task', disabled: 'user.hasTodosToAllocate()' } }
-            %span.input-group-btn
-              // Should probably disable the Do! button until the task is entered
-              %button.btn.btn-primary{ type: 'submit', ng: { show: '!user.hasTodosToAllocate()' } } Do!
-              %button.btn.btn-danger{ type: 'button', ng: { click: 'cancelAdd()', show: 'user.hasTodosToAllocate()' } }
-                %span{ style: 'font-weight:500;' } &times;
+      = render partial: 'form', locals: { list: 'later' }
   .row
     .col-lg-6.col-lg-offset-3
       %ul.list-group{ ng: { model: 'user.todos' }, ui: { sortable: 'sortableOptions' } }

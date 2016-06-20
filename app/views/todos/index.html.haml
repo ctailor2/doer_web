@@ -1,14 +1,7 @@
 .container-fluid
   .row
     .col-lg-6.col-lg-offset-3
-      %form{ ng: { submit: 'add(task)' } }
-        .form-group
-          .input-group
-            %input.form-control{ type: 'text', name: 'task', ng: { model: 'task', disabled: 'user.hasTodosToAllocate()' } }
-            %span.input-group-btn
-              %button.btn.btn-primary{ type: 'submit', ng: { show: '!user.hasTodosToAllocate()' } } Do!
-              %button.btn.btn-danger{ type: 'button', ng: { click: 'cancelAdd()', show: 'user.hasTodosToAllocate()' } }
-                %span{ style: 'font-weight:500;' } &times;
+      = render partial: 'form', locals: { list: '' }
   .row
     .col-lg-6.col-lg-offset-3
       %span{ style: 'position:absolute; width:2px; height: 16px; background-color:white;' }

@@ -29,10 +29,9 @@ angular.module('AngularDoer')
     $scope.add = function(task, list) {
       $scope.user.unallocatedTodos.push({ task: task });
       if(angular.isDefined(list)) {
-        if(list == 'now') {
-          this.doNow();
-        } else {
-          this.doLater();
+        switch (list) {
+          case 'now': this.doNow();
+          case 'later': this.doLater();
         }
       }
     };

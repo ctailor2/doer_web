@@ -1,0 +1,8 @@
+%form{ ng: { submit: "add(task, '#{list}')" } }
+  .form-group
+    .input-group
+      %input.form-control{ type: 'text', name: 'task', ng: { model: 'task', disabled: 'user.hasTodosToAllocate()' } }
+      %span.input-group-btn
+        %button.btn.btn-primary{ type: 'submit', ng: { show: '!user.hasTodosToAllocate()', disabled: '!(task.length > 0)' } } Do!
+        %button.btn.btn-danger{ type: 'button', ng: { click: 'cancelAdd()', show: 'user.hasTodosToAllocate()' } }
+          %span{ style: 'font-weight:500;' } &times;
