@@ -38,7 +38,7 @@ angular.module('AngularDoer')
       if(angular.isDefined($scope.user)) {
         return ($scope.user.goal_setting_attributes['updated_today?'] || $scope.user.goal_setting_attributes.target + diff < $scope.user.count_of_active_todos);
       } else {
-        return true;
+        return false;
       };
     }
 
