@@ -7,7 +7,8 @@
       "angular-sanitize": "latest",
       "js-cookie": "latest",
       "angular-ui-sortable": "latest",
-      "angular-animate": "latest"
+      "angular-animate": "latest",
+      "jasmine": "latest"
     }
   },
   "vendor": {
