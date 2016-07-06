@@ -69,6 +69,12 @@ GEM
     haml (4.0.7)
       tilt
     i18n (0.7.0)
+    jasmine-core (2.4.1)
+    jasmine-rails (0.12.5)
+      jasmine-core (>= 1.3, < 3.0)
+      phantomjs (>= 1.9)
+      railties (>= 3.2.0)
+      sprockets-rails
     jbuilder (2.4.1)
       activesupport (>= 3.0.0, < 5.1)
       multi_json (~> 1.2)
@@ -88,6 +94,7 @@ GEM
     multi_json (1.11.2)
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
+    phantomjs (2.1.1.0)
     pry (0.10.3)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -170,6 +177,7 @@ DEPENDENCIES
   bower-rails
   coffee-rails (~> 4.1.0)
   haml
+  jasmine-rails
   jbuilder (~> 2.0)
   jquery-rails
   pry-byebug
