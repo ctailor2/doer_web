@@ -13,8 +13,14 @@ angular.module('AngularDoer')
         emptyActive: function() {
           return this.activeTodos().length == 0;
         },
+        emptyInactive: function() {
+          return this.inactiveTodos().length == 0;
+        },
         activeTodos: function() {
           return completedFilter(activeFilter(this.todos, true), false);
+        },
+        inactiveTodos: function() {
+          return completedFilter(activeFilter(this.todos, false), false);
         },
         // Not crazy about all this styling living here
         // Maybe replace ng: :style calls with ng: :class and wrap all this styling
@@ -36,7 +42,10 @@ angular.module('AngularDoer')
         pullInactiveTodosBtnStyle: function() {
           var topPosition = this.goal_setting_attributes.target * this.todoHeight * 1.0 / 2 - 19;
           return { 'top':  topPosition + 'px' };
-        }
+        },
+        noInactiveTodosCopyStyle: function() {
+          return { 'line-height': this.goal_setting_attributes.target * this.todoHeight + 'px' };
+        },
       });
       // Hydrate from API data
       // -- assocs
