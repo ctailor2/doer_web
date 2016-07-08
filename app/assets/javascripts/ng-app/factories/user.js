@@ -32,6 +32,13 @@ angular.module('AngularDoer')
             return 'label-primary'
           }
         },
+        pipelineLinkClass: function() {
+          if(this.pipeline_setting_attributes['cannot_view?']) {
+            return 'disabled'
+          } else {
+            return ''
+          }
+        },
         todoHeight: 57,
         todoStyle: function() {
           return { 'height': this.todoHeight + 'px' };

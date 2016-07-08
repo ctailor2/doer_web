@@ -4,7 +4,7 @@ angular.module('AngularDoer')
 
     $scope.progressBar.start();
 
-    UserService.get({ 'with_assocs[]': ['goal_setting'] }).then(
+    UserService.get({ 'with_assocs[]': ['goal_setting', 'pipeline_setting'] }).then(
       function(user) {
         $scope.progressBar.complete();
         $scope.user = user;
@@ -37,6 +37,20 @@ angular.module('AngularDoer')
     $scope.cannotChangeGoalTarget = function(diff) {
       if(angular.isDefined($scope.user)) {
         return ($scope.user.goal_setting_attributes['updated_today?'] || $scope.user.goal_setting_attributes.target + diff < $scope.user.count_of_active_todos);
+      } else {
+        return false;
+      };
+    }
+
+    $scope.changePipelineDaysBetweenViews = function(diff) {
+      $scope.user.pipeline_setting_attributes.days_between_views += diff;
+      update($scope.user);
+    };
+
+    $scope.cannotChangePipelineDaysBetweenViews = function(diff) {
+      if(angular.isDefined($scope.user)) {
+        var proposedDaysBetweenViews = $scope.user.pipeline_setting_attributes.days_between_views+ diff
+        return (proposedDaysBetweenViews < 1 || proposedDaysBetweenViews > 5);
       } else {
         return false;
       };

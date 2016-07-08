@@ -1,3 +1,13 @@
+:javascript
+  $.ajax({
+    url: 'http://localhost:4000/v1/users/view_pipeline',
+    type: 'PUT',
+    error: function() {
+      window.location.replace("#{root_url}");
+    },
+    headers: { 'Session-Token': Cookies.get('token') }
+  });
+
 .container-fluid
   .row
     .col-lg-6.col-lg-offset-3
@@ -9,3 +19,4 @@
           {{ todo.task }}
           %button.close{ type: 'button', ng: { click: 'remove(todo)' } }
             %span &times;
+

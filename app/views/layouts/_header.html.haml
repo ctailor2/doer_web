@@ -7,7 +7,7 @@
           %a.nav-link.dropdown-toggle{ href: '#', data: { toggle: 'dropdown' } } {{ user.email }}
           .dropdown-menu.dropdown-menu-right
             %a.dropdown-item{ href: '/', target: '_self' } Dashboard
-            %a.dropdown-item{ href: '/pipeline', target: '_self' } Pipeline
+            %a.dropdown-item{ href: '/pipeline', target: '_self', ng: { class: 'user.pipelineLinkClass()' } } Pipeline
             %a.dropdown-item{ href: '/settings', target: '_self' } Settings
             %a.dropdown-item{ href: '#', id: 'logout-link' } Logout
 
@@ -15,5 +15,13 @@
   $('#logout-link').click(function(event) {
     Cookies.remove('token');
     window.location.reload();
+  });
+  $('.dropdown-item').click(function(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    if(!$(this).hasClass('disabled')) {
+      $(this).closest('.dropdown').removeClass('open');
+      window.location.pathname = $(this).attr('href');
+    }
   });
 
