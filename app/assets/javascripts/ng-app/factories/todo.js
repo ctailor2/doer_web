@@ -1,5 +1,5 @@
 angular.module('AngularDoer')
-  .factory('Todo', function() {
+  .factory('Todo', [function() {
     var Todo = function(data) {
       angular.extend(this, {
         sortableClass: '',
@@ -14,5 +14,5 @@ angular.module('AngularDoer')
       angular.extend(this, data);
     };
     return Todo;
-  });
+  }]);
 

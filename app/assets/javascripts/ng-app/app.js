@@ -14,10 +14,10 @@ angular
       return [this.host, this.port].join(':');
     }
   })
-  .config(function($locationProvider) {
+  .config(['$locationProvider', function($locationProvider) {
     $locationProvider.html5Mode(true);
-  })
-  .config(function($httpProvider) {
+  }])
+  .config(['$httpProvider', function($httpProvider) {
     $httpProvider.defaults.headers.common['Client-Token'] = 'Cwi2R8cYVwPocG4zUmdQxPEDkPcWrXQk'
     $httpProvider.defaults.headers.common['Session-Token'] = Cookies.get('token')
-  });
+  }]);

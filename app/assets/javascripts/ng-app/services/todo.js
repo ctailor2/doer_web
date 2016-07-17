@@ -1,5 +1,5 @@
 angular.module('AngularDoer')
-  .service('TodoService', function($http, $q, apiConfig, Todo) {
+  .service('TodoService', ['$http', '$q', 'apiConfig', 'Todo', function($http, $q, apiConfig, Todo) {
     return {
       create: function(todo) {
         var deferredHandler = $q.defer();
@@ -59,5 +59,5 @@ angular.module('AngularDoer')
         return deferredHandler.promise;
       }
     }
-  });
+  }]);
 

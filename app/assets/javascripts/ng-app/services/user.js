@@ -1,5 +1,5 @@
 angular.module('AngularDoer')
-  .service('UserService', function($http, $q, apiConfig, User) {
+  .service('UserService', ['$http', '$q', 'apiConfig', 'User', function($http, $q, apiConfig, User) {
     return {
       get: function(params) {
         var deferredHandler = $q.defer();
@@ -31,5 +31,5 @@ angular.module('AngularDoer')
         return deferredHandler.promise;
       }
     }
-  });
+  }]);
 

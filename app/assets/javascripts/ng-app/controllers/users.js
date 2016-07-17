@@ -1,5 +1,5 @@
 angular.module('AngularDoer')
-  .controller('UsersCtrl', function($scope, $http, progressBar, UserService) {
+  .controller('UsersCtrl', ['$scope', '$http', 'progressBar', 'UserService', function($scope, $http, progressBar, UserService) {
     $scope.progressBar = progressBar;
 
     $scope.progressBar.start();
@@ -63,5 +63,5 @@ angular.module('AngularDoer')
         return "";
       };
     };
-  });
+  }]);
 

@@ -1,5 +1,5 @@
 angular.module('AngularDoer')
-  .controller('TodosCtrl', function($scope, $http, $filter, progressBar, UserService, TodoService, activeFilter, positionUpdatedFilter) {
+  .controller('TodosCtrl', ['$scope', '$http', '$filter', 'progressBar', 'UserService', 'TodoService', 'activeFilter', 'positionUpdatedFilter', function($scope, $http, $filter, progressBar, UserService, TodoService, activeFilter, positionUpdatedFilter) {
     $scope.sortableOptions = {
       // Still need to test how sorting around a disabled item works
       items: '> li:not(.disabled)',
@@ -147,5 +147,5 @@ angular.module('AngularDoer')
       );
       updatePositions();
     };
-  });
+  }]);
 

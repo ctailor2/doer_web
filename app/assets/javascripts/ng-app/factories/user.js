@@ -1,5 +1,5 @@
 angular.module('AngularDoer')
-  .factory('User', function(activeFilter, completedFilter, Todo) {
+  .factory('User', ['activeFilter', 'completedFilter', 'Todo', function(activeFilter, completedFilter, Todo) {
     var User = function(data) {
       // Default User behavior
       angular.extend(this, {
@@ -66,5 +66,5 @@ angular.module('AngularDoer')
       angular.extend(this, data);
     };
     return User;
-  });
+  }]);
 

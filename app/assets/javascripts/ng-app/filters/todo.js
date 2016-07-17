@@ -1,5 +1,5 @@
 angular.module('AngularDoer')
-  .filter('active', function() {
+  .filter('active', [function() {
     return function(todos, active) {
       var filteredTodos = [];
       angular.forEach(todos, function(todo) {
@@ -9,8 +9,8 @@ angular.module('AngularDoer')
       });
       return filteredTodos;
     };
-  })
-  .filter('completed', function() {
+  }])
+  .filter('completed', [function() {
     return function(todos, completed) {
       var filteredTodos = [];
       angular.forEach(todos, function(todo) {
@@ -20,8 +20,8 @@ angular.module('AngularDoer')
       });
       return filteredTodos;
     };
-  })
-  .filter('positionUpdated', function() {
+  }])
+  .filter('positionUpdated', [function() {
     return function(todos) {
       var filteredTodos = [];
       angular.forEach(todos, function(todo) {
@@ -31,5 +31,5 @@ angular.module('AngularDoer')
       });
       return filteredTodos;
     };
-  })
+  }])
 
